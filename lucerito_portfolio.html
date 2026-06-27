@@ -9,7 +9,7 @@
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Tejidos Lucerito – Artesanía de Corazón, Gualmatán Nariño">
 <meta property="og:description" content="Piezas únicas tejidas a mano por mujeres campesinas de Gualmatán. Ruanas, mochilas, mantas, bufandas y más.">
-<meta property="og:image" content="https://placehold.co/1200x630/5C4033/F5E6C8?text=Tejidos+Lucerito">
+<meta property="og:image" content="assets/images/og-image.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta name="twitter:card" content="summary_large_image">
@@ -44,7 +44,7 @@
     {
       "@type": "LocalBusiness",
       "name": "Tejidos Lucerito",
-      "image": "https://placehold.co/800x600/5C4033/F5E6C8?text=Tejidos+Lucerito",
+      "image": "assets/images/og-image.jpg",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
@@ -76,7 +76,7 @@
   --mostaza-light: #D9A04A;
   --rojo-nudo: #8B3A3A;
   --blanco-lana: #FDFAF4;
-  --gris-lana: #A09080;
+  --gris-lana: #7A6B5E;
   --negro-suave: #2A1F1A;
   --sombra: rgba(60,35,20,0.12);
   --font-display: 'Playfair Display', serif;
@@ -87,6 +87,23 @@
   --radius-lg: 28px;
   --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
 }
+
+/* ===== SKIP LINK ===== */
+.skip-link { position: absolute; top: -100%; left: 0; z-index: 10000; padding: 0.75rem 1.5rem; background: var(--tierra-deep); color: var(--crema); font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: top 0.2s; }
+.skip-link:focus { top: 0; outline: 3px solid var(--mostaza); outline-offset: 2px; }
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] { --tierra: #A58A7B; --tierra-light: #C0A08F; --tierra-deep: #E8DCC8; --crema: #2A221B; --crema-warm: #52463A; --crema-deep: #4A3F32; --blanco-lana: #1E1710; --gris-lana: #8A7B6F; --negro-suave: #F5E6C8; }
+
+/* ===== LIGHTBOX NAV ===== */
+.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: var(--crema); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; transition: var(--transition); z-index: 10; }
+.lightbox-nav:hover { background: rgba(255,255,255,0.25); }
+.lightbox-prev { left: 2rem; }
+.lightbox-next { right: 2rem; }
+
+/* ===== SKELETON LOADING ===== */
+.skeleton { background: linear-gradient(90deg, var(--crema) 25%, var(--crema-deep) 50%, var(--crema) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1454,6 +1471,21 @@ footer {
   justify-content: center;
 }
 
+.lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(42,31,26,0.6); color: var(--crema);
+  border: none; width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.3rem; cursor: pointer; z-index: 10;
+  transition: var(--transition); display: flex;
+  align-items: center; justify-content: center;
+}
+.lightbox-nav:hover { background: var(--tierra); }
+.lightbox-nav--prev { left: 1rem; }
+.lightbox-nav--next { right: 1rem; }
+@media (max-width: 600px) {
+  .lightbox-nav { width: 36px; height: 36px; font-size: 1rem; }
+}
+
 /* ===== PRODUCT MODAL ===== */
 #product-modal {
   display: none;
@@ -1587,9 +1619,136 @@ footer {
 @media (max-width: 420px) {
   .productos-grid { grid-template-columns: 1fr; }
 }
+
+.skip-link {
+  position: absolute; top: -100%; left: 1rem; z-index: 9999;
+  padding: 0.75rem 1.5rem; background: var(--tierra); color: var(--crema);
+  border-radius: var(--radius-sm); text-decoration: none;
+  font-family: var(--font-body); font-size: 0.9rem;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Cart Modal */
+.cart-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45); z-index: 1000;
+  opacity: 0; visibility: hidden; transition: var(--transition);
+}
+.cart-overlay.open { opacity: 1; visibility: visible; }
+.cart-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 92%; max-width: 420px;
+  background: var(--blanco-lana); z-index: 1001;
+  display: flex; flex-direction: column;
+  transform: translateX(100%); transition: var(--transition);
+  box-shadow: -8px 0 30px var(--sombra);
+}
+.cart-overlay.open .cart-drawer { transform: translateX(0); }
+.cart-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--crema-warm);
+}
+.cart-header h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--tierra); }
+.cart-close {
+  background: none; border: none; font-size: 1.5rem; cursor: pointer;
+  color: var(--gris-lana); padding: 0.25rem; line-height: 1;
+  transition: var(--transition);
+}
+.cart-close:hover { color: var(--tierra); transform: rotate(90deg); }
+.cart-items {
+  flex: 1; overflow-y: auto; padding: 1rem 1.5rem;
+}
+.cart-empty {
+  text-align: center; padding: 3rem 0; color: var(--gris-lana);
+  font-family: var(--font-body);
+}
+.cart-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 0; border-bottom: 1px solid var(--crema-warm);
+}
+.cart-item:last-child { border-bottom: none; }
+.cart-item-img { width: 56px; height: 56px; border-radius: var(--radius-sm); object-fit: cover; }
+.cart-item-info { flex: 1; min-width: 0; }
+.cart-item-name { font-weight: 600; font-size: 0.9rem; color: var(--tierra); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cart-item-precio { font-size: 0.85rem; color: var(--gris-lana); }
+.cart-item-remove {
+  background: none; border: none; font-size: 0.9rem; cursor: pointer;
+  color: var(--rojo-nudo); padding: 0.4rem; line-height: 1;
+  border-radius: 50%; transition: var(--transition);
+}
+.cart-item-remove:hover { background: var(--rojo-nudo); color: var(--blanco-lana); }
+.cart-footer {
+  padding: 1.25rem 1.5rem; border-top: 1px solid var(--crema-warm);
+}
+.cart-footer.hidden { display: none; }
+.cart-total {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem;
+  color: var(--tierra);
+}
+.cart-total-val { font-weight: 700; }
+.cart-actions { display: flex; gap: 0.5rem; }
+.cart-actions .btn-primary { flex: 1; justify-content: center; }
+.cart-actions .btn-outline { flex: 1; justify-content: center; }
+
+/* Cart badge */
+.cart-count-badge {
+  position: absolute; top: -6px; right: -6px;
+  background: var(--rojo-nudo); color: white; font-size: 0.65rem;
+  min-width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; line-height: 1;
+  pointer-events: none;
+}
+
+/* Search input */
+.catalogo-search-wrap {
+  position: relative; margin-bottom: 1.5rem; max-width: 400px;
+}
+.catalogo-search-wrap input {
+  width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 2px solid var(--crema-warm); border-radius: var(--radius-md);
+  background: var(--blanco-lana); color: var(--tierra);
+  font-family: var(--font-body); font-size: 0.95rem;
+  transition: var(--transition);
+  outline: none;
+}
+.catalogo-search-wrap input:focus {
+  border-color: var(--tierra); box-shadow: 0 0 0 3px rgba(92,64,51,0.15);
+}
+.catalogo-search-wrap .search-icon {
+  position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%);
+  color: var(--gris-lana); pointer-events: none; font-size: 1rem;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --tierra: #C9A98E;
+  --tierra-light: #B8927A;
+  --tierra-deep: #3D2B1F;
+  --crema: #2A1F1A;
+  --crema-warm: #3D2B1F;
+  --crema-deep: #5C4033;
+  --blanco-lana: #1A1410;
+  --gris-lana: #A09080;
+  --negro-suave: #F5E6C8;
+  --sombra: rgba(0,0,0,0.4);
+  --rojo-nudo: #C95A5A;
+}
+#dark-mode-toggle {
+  background: none; border: 2px solid var(--crema-warm); border-radius: var(--radius-sm);
+  cursor: pointer; font-size: 1.1rem; line-height: 1; padding: 0.35rem 0.5rem;
+  color: var(--tierra); transition: var(--transition);
+}
+#dark-mode-toggle:hover { background: var(--crema-warm); }
+
+/* Utility */
+.hidden { display: none !important; }
+
 </style>
 </head>
 <body>
+<a href="#hero" class="skip-link">Saltar al contenido principal</a>
 
 <!-- ANNOUNCEMENT BAR -->
 <div id="announcement-bar">
@@ -1609,7 +1768,11 @@ footer {
       <a href="#combos">Combos</a>
       <a href="#promociones">Promos</a>
       <a href="#galeria">Galería</a>
-      <a href="#contacto" class="nav-cta">Pedir ahora</a>
+      <button id="dark-mode-toggle" aria-label="Cambiar tema oscuro/claro" title="Modo oscuro">☀️</button>
+      <button id="cart-btn" class="nav-cta" data-action="toggle-cart" aria-label="Abrir carrito">
+        <span id="cart-count-label">Pedir</span>
+      </button>
+      <button id="dark-mode-toggle" class="nav-cta" aria-label="Cambiar a modo oscuro" style="padding:0.5rem;font-size:1rem;">🌙</button>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -1626,6 +1789,7 @@ footer {
   <a href="#promociones" class="mobile-link">Promos</a>
   <a href="#galeria" class="mobile-link">Galería</a>
   <a href="#contacto" class="mobile-link">Contacto</a>
+  <button class="mobile-link" data-action="toggle-cart" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;width:100%;text-align:left;padding:0.85rem 1.5rem;display:flex;align-items:center;gap:0.5rem;">🛒 Carrito</button>
 </div>
 
 <!-- HERO -->
@@ -1666,7 +1830,7 @@ footer {
   </div>
   <div class="hero-visual" aria-hidden="true">
     <img
-      src="https://placehold.co/900x1100/5C4033/F5E6C8?text=Tejidos+Lucerito"
+      src="assets/images/og-image.jpg"
       alt="Artesana tejiendo en Gualmatán"
       class="hero-img-main"
       loading="eager"
@@ -1689,13 +1853,13 @@ footer {
     <div class="quienes-grid">
       <div class="quienes-images reveal">
         <img
-          src="https://placehold.co/480x480/7A5546/F5E6C8?text=Artesanas+de+Gualmatán"
+          src="assets/images/prod-placeholder.jpg"
           alt="Mujeres artesanas de Tejidos Lucerito en Gualmatán, Nariño"
           class="quienes-img-1"
           loading="lazy"
         >
         <img
-          src="https://placehold.co/360x320/4A6741/F5E6C8?text=Tejido+Tradicional"
+          src="assets/images/tecnica-tejido.jpg"
           alt="Detalle de tejido artesanal tradicional nariñense"
           class="quienes-img-2"
           loading="lazy"
@@ -1763,7 +1927,7 @@ footer {
     <div class="tecnicas-grid">
       <article class="tecnica-card reveal reveal-delay-1">
         <div class="tecnica-img-wrap">
-          <img src="https://placehold.co/500x375/3D2B1F/F5E6C8?text=Telar+de+pie" alt="Telar de pie artesanal nariñense" loading="lazy">
+          <img src="assets/images/tecnica-telar.jpg" alt="Telar de pie artesanal nariñense" loading="lazy">
         </div>
         <div class="tecnica-body">
           <div class="tecnica-icon">🪡</div>
@@ -1773,7 +1937,7 @@ footer {
       </article>
       <article class="tecnica-card reveal reveal-delay-2">
         <div class="tecnica-img-wrap">
-          <img src="https://placehold.co/500x375/4A6741/F5E6C8?text=Crochet+artesanal" alt="Crochet artesanal a mano" loading="lazy">
+          <img src="assets/images/tecnica-crochet.jpg" alt="Crochet artesanal a mano" loading="lazy">
         </div>
         <div class="tecnica-body">
           <div class="tecnica-icon">🧶</div>
@@ -1783,7 +1947,7 @@ footer {
       </article>
       <article class="tecnica-card reveal reveal-delay-3">
         <div class="tecnica-img-wrap">
-          <img src="https://placehold.co/500x375/5C4033/F5E6C8?text=Tejido+en+palillo" alt="Tejido en palillo dos agujas" loading="lazy">
+          <img src="assets/images/tecnica-palillo.jpg" alt="Tejido en palillo dos agujas" loading="lazy">
         </div>
         <div class="tecnica-body">
           <div class="tecnica-icon">🪢</div>
@@ -1811,6 +1975,10 @@ footer {
       <button class="filter-btn" data-filter="accesorios">Accesorios</button>
       <button class="filter-btn" data-filter="hogar">Para el hogar</button>
       <button class="filter-btn" data-filter="infantil">Infantil</button>
+    </div>
+    <div class="catalogo-search-wrap">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input type="search" id="catalogo-search" placeholder="Buscar productos..." aria-label="Buscar en el catálogo">
     </div>
     <div class="productos-grid" id="productos-grid" aria-label="Productos disponibles">
       <!-- Rendered by JS -->
@@ -1855,7 +2023,7 @@ footer {
           <div class="promo-tag-top">🎁 Especial envíos</div>
           <h3 class="promo-title" style="font-size:1.15rem;">Envío gratis desde $180.000</h3>
           <p class="promo-desc" style="margin-bottom:1rem;">Compra de $180.000 o más y el flete corre por nuestra cuenta a cualquier parte de Colombia.</p>
-          <button class="promo-cta" onclick="scrollToSection('catalogo')">Ver catálogo →</button>
+          <button class="promo-cta" data-action="scroll-catalogo">Ver catálogo →</button>
         </div>
         <div class="promo-card reveal reveal-delay-2">
           <div class="promo-tag-top">🤝 Para mayoristas</div>
@@ -2006,10 +2174,10 @@ footer {
       <div class="contacto-form-card reveal reveal-delay-2">
         <h3>Envianos un mensaje</h3>
         <p>Te respondemos en menos de 24 horas.</p>
-        <div id="form-msg" class="admin-msg" style="display:none;"></div>
+        <div id="form-msg" class="admin-msg" style="display:none;" role="alert" aria-live="polite" aria-atomic="true"></div>
         <div class="form-group">
           <label class="form-label" for="contact-nombre">Tu nombre</label>
-          <input type="text" id="contact-nombre" class="form-input" placeholder="María López" autocomplete="name">
+          <input type="text" id="contact-nombre" class="form-input" placeholder="María López" autocomplete="name" aria-required="true" aria-describedby="form-msg">
         </div>
         <div class="form-group">
           <label class="form-label" for="contact-email">Correo o WhatsApp</label>
@@ -2032,7 +2200,7 @@ footer {
           <label class="form-label" for="contact-mensaje">Mensaje</label>
           <textarea id="contact-mensaje" class="form-input" placeholder="Cuéntanos qué necesitas, tallas, colores, cantidades..."></textarea>
         </div>
-        <button class="btn-primary" style="width:100%; justify-content:center;" onclick="enviarFormulario()">Enviar mensaje →</button>
+        <button class="btn-primary" style="width:100%; justify-content:center;" data-action="enviar-form">Enviar mensaje →</button>
         <p class="form-note">* Tu información no se comparte con terceros. Solo la usamos para responderte.</p>
       </div>
     </div>
@@ -2125,7 +2293,7 @@ footer {
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Tejidos Lucerito. Todos los derechos reservados. Gualmatán, Nariño, Colombia.</p>
+      <p class="footer-copy">© <span id="footer-year">2025</span> Tejidos Lucerito. Todos los derechos reservados. Gualmatán, Nariño, Colombia.</p>
       <p class="footer-craft"><span>🧵</span> Hecho con amor artesanal en Nariño</p>
     </div>
   </div>
@@ -2136,18 +2304,18 @@ footer {
   <span class="float-wa-tooltip">¡Escríbenos!</span>
   <a href="https://wa.me/573000000000?text=Hola%20Tejidos%20Lucerito!" class="float-wa-btn" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">📱</a>
 </div>
-<button id="admin-float-btn" aria-label="Panel de administración" title="Administrar productos">⚙️</button>
+<button id="admin-float-btn" data-action="admin-open" aria-label="Panel de administración" title="Administrar productos">⚙️</button>
 
 <!-- ADMIN MODAL -->
 <div id="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-title">
   <div id="admin-panel">
-    <button class="admin-close" onclick="closeAdmin()" aria-label="Cerrar panel">✕</button>
+    <button class="admin-close" data-action="admin-close" aria-label="Cerrar panel">✕</button>
     <h3 id="admin-title">Panel de administración</h3>
     <p class="admin-subtitle">Solo para artesanas de Tejidos Lucerito</p>
     <div id="admin-login" style="display:block;">
       <div class="admin-password-section">
         <input type="password" class="admin-input" id="admin-pwd" placeholder="Contraseña de acceso" autocomplete="current-password">
-        <button class="btn-primary" onclick="checkAdminPwd()" style="white-space:nowrap;">Ingresar</button>
+        <button class="btn-primary" data-action="admin-login" style="white-space:nowrap;">Ingresar</button>
       </div>
       <div id="admin-login-msg"></div>
     </div>
@@ -2157,8 +2325,8 @@ footer {
       </p>
       <div class="admin-products-list" id="admin-list"></div>
       <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <button class="btn-primary" onclick="saveAdminChanges()">Guardar todos los cambios</button>
-        <button class="btn-outline" onclick="resetToDefaults()" style="font-size:0.82rem;">Restaurar originales</button>
+        <button class="btn-primary" data-action="admin-save">Guardar todos los cambios</button>
+        <button class="btn-outline" data-action="admin-reset" style="font-size:0.82rem;">Restaurar originales</button>
       </div>
       <div id="admin-save-msg" style="margin-top:0.75rem;"></div>
     </div>
@@ -2167,14 +2335,16 @@ footer {
 
 <!-- LIGHTBOX -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
-  <button id="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar imagen">✕</button>
+  <button id="lightbox-close" data-action="close-lightbox" aria-label="Cerrar imagen">✕</button>
+    <button class="lightbox-nav lightbox-nav--prev" data-action="lightbox-prev" aria-label="Anterior">❮</button>
+    <button class="lightbox-nav lightbox-nav--next" data-action="lightbox-next" aria-label="Siguiente">❯</button>
   <img id="lightbox-img" src="" alt="Imagen ampliada de tejido artesanal">
 </div>
 
 <!-- PRODUCT MODAL -->
 <div id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-product-name" style="position:fixed;">
   <div id="product-modal-inner" style="position:relative;">
-    <button class="modal-close-btn" onclick="closeProductModal()" aria-label="Cerrar ficha de producto">✕</button>
+    <button class="modal-close-btn" data-action="close-product-modal" aria-label="Cerrar ficha de producto">✕</button>
     <div class="modal-img">
       <img id="modal-product-img" src="" alt="">
     </div>
@@ -2195,6 +2365,19 @@ footer {
 // =============================================
 const ADMIN_PASSWORD = 'lucerito2025'; // Cambia esto
 
+// CONFIG — Actualiza estos valores con tus datos reales
+const CONFIG = {
+  whatsapp: '573000000000', // Sin + ni espacios
+  instagram: 'tejidoslucerito',
+  facebook: 'tejidoslucerito',
+  email: 'info@tejidoslucerito.com',
+  direccion: 'Gualmatán, Nariño, Colombia'
+};
+
+function getWhatsAppLink(text = '') {
+  return `https://wa.me/${CONFIG.whatsapp}${text ? '?text=' + encodeURIComponent(text) : ''}`;
+}
+
 const defaultProductos = [
   {
     id: 1, cat: 'ruanas', catLabel: 'Ruanas y mantas',
@@ -2202,7 +2385,7 @@ const defaultProductos = [
     precio: 95000, precioAntes: null,
     estado: 'disponible', nuevo: true,
     personalizable: true,
-    img: 'https://placehold.co/600x800/5C4033/F5E6C8?text=Ruana+Tradicional',
+    img: 'assets/images/prod-ruana.jpg',
     desc: 'Tejida en telar de pie con lana de oveja 100% natural. Gruesa, cálida, impermeable. Disponible en colores tierra, negro, gris páramo y burdeos.',
     detalles: { Material: 'Lana de oveja 100%', Técnica: 'Telar de pie', Tiempo: '4-6 días', Tallas: 'S, M, L, XL', Cuidado: 'Lavado a mano agua fría' }
   },
@@ -2212,7 +2395,7 @@ const defaultProductos = [
     precio: 75000, precioAntes: 90000,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: 'https://placehold.co/600x800/4A6741/F5E6C8?text=Mochila+Multicolor',
+    img: 'assets/images/prod-mochila.jpg',
     desc: 'Crochet elaborado con hilo grueso de algodón. Colores basados en la paleta nariñense. Cierre de botón artesanal y correa ajustable.',
     detalles: { Material: 'Hilo algodón', Técnica: 'Crochet', Tiempo: '3-5 días', Capacidad: '8 litros aprox.', Cuidado: 'Lavado suave a mano' }
   },
@@ -2222,7 +2405,7 @@ const defaultProductos = [
     precio: 55000, precioAntes: null,
     estado: 'disponible', nuevo: true,
     personalizable: true,
-    img: 'https://placehold.co/600x800/C4852A/F5E6C8?text=Set+Bufanda+Gorro',
+    img: 'assets/images/prod-accesorios.jpg',
     desc: 'Set combinado tejido en palillo con lana virgen. La bufanda mide 160cm y el gorro viene en talla única con dobladillo ajustable.',
     detalles: { Material: 'Lana virgen', Técnica: 'Palillo / agujas', Tiempo: '2-3 días', Colores: '8 combinaciones disponibles', Cuidado: 'Lavado a mano' }
   },
@@ -2232,7 +2415,7 @@ const defaultProductos = [
     precio: 85000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: false,
-    img: 'https://placehold.co/600x800/7A5546/F5E6C8?text=Tapete+Telar',
+    img: 'assets/images/prod-hogar.jpg',
     desc: 'Tejido en telar con hilo de yute y lana reciclada. Diámetro 80cm. Ideal para sala o comedor. Cada uno es diferente, no hay dos iguales.',
     detalles: { Material: 'Yute + lana reciclada', Técnica: 'Telar de pie', Dimensión: '80 cm diámetro', Tiempo: '5-7 días', Cuidado: 'Sacudir, no lavar' }
   },
@@ -2242,7 +2425,7 @@ const defaultProductos = [
     precio: 35000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: 'https://placehold.co/600x800/8B3A3A/F5E6C8?text=Gorro+Bebé',
+    img: 'assets/images/prod-gorro.jpg',
     desc: 'Suave, hipoalergénico, perfecto para recién nacidos y bebés hasta 18 meses. Disponible en varios colores pastel y con borla opcional.',
     detalles: { Material: 'Hilo algodón baby', Técnica: 'Palillo', Tallas: '0-6m, 6-12m, 12-18m', Tiempo: '1-2 días', Cuidado: 'Lavado delicado 30°' }
   },
@@ -2252,7 +2435,7 @@ const defaultProductos = [
     precio: 120000, precioAntes: 145000,
     estado: 'disponible', nuevo: false,
     personalizable: false,
-    img: 'https://placehold.co/600x800/3D2B1F/F5E6C8?text=Manta+Andina',
+    img: 'assets/images/prod-manta.jpg',
     desc: 'Grande, versátil y abrigadora. Úsala como ruana, manta de sofá o colcha ligera. Tejida en telar con lana mezclada, diseño geométrico nariñense.',
     detalles: { Material: 'Lana mezclada', Técnica: 'Telar de pie', Dimensión: '180x140 cm', Tiempo: '7-10 días', Cuidado: 'Lavado a mano agua tibia' }
   },
@@ -2262,7 +2445,7 @@ const defaultProductos = [
     precio: 48000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: 'https://placehold.co/600x800/6B8F62/F5E6C8?text=Bolso+Mercado',
+    img: 'assets/images/prod-bolso.jpg',
     desc: 'Abierto, resistente, ideal para mercado o playa. Tejido en macramé y crochet con hilo de algodón grueso. Se dobla y cabe en el bolsillo.',
     detalles: { Material: 'Algodón grueso', Técnica: 'Crochet + macramé', Tiempo: '2-3 días', Colores: '6 opciones', Cuidado: 'Lavado a mano' }
   },
@@ -2272,7 +2455,7 @@ const defaultProductos = [
     precio: 28000, precioAntes: null,
     estado: 'agotado', nuevo: false,
     personalizable: false,
-    img: 'https://placehold.co/600x800/A09080/F5E6C8?text=Medias+Lana',
+    img: 'assets/images/prod-medias.jpg',
     desc: 'Tejidas en palillo con lana virgen nariñense. Gruesas, sin costuras, perfectas para el frío. Disponibles en talla S-M y M-L.',
     detalles: { Material: 'Lana virgen', Técnica: 'Palillo circular', Tallas: 'S-M / M-L', Tiempo: '2-3 días', Cuidado: 'Lavado a mano frío' }
   }
@@ -2287,9 +2470,9 @@ const defaultCombos = [
     precioAntes: 185000,
     badge: '16% off',
     imgs: [
-      'https://placehold.co/400x200/5C4033/F5E6C8?text=Kit+Páramo',
-      'https://placehold.co/200x100/4A6741/F5E6C8?text=Bufanda',
-      'https://placehold.co/200x100/C4852A/F5E6C8?text=Gorro'
+      'assets/images/prod-placeholder.jpg',
+      'assets/images/prod-bufanda.jpg',
+      'assets/images/prod-gorro.jpg'
     ]
   },
   {
@@ -2300,9 +2483,9 @@ const defaultCombos = [
     precioAntes: 220000,
     badge: '16% off',
     imgs: [
-      'https://placehold.co/400x200/3D2B1F/F5E6C8?text=Combo+Hogar',
-      'https://placehold.co/200x100/7A5546/F5E6C8?text=Tapete',
-      'https://placehold.co/200x100/A09080/F5E6C8?text=Manta'
+      'assets/images/combo-hogar.jpg',
+      'assets/images/prod-tapete.jpg',
+      'assets/images/prod-manta.jpg'
     ]
   },
   {
@@ -2313,20 +2496,20 @@ const defaultCombos = [
     precioAntes: 110000,
     badge: '16% off',
     imgs: [
-      'https://placehold.co/400x200/8B3A3A/F5E6C8?text=Kit+Bebé',
-      'https://placehold.co/200x100/6B8F62/F5E6C8?text=Medias',
-      'https://placehold.co/200x100/D9A04A/F5E6C8?text=Bolsito'
+      'assets/images/prod-placeholder.jpg',
+      'assets/images/prod-medias.jpg',
+      'assets/images/prod-bolsito.jpg'
     ]
   }
 ];
 
 const galeriaImgs = [
-  { src: 'https://placehold.co/800x600/5C4033/F5E6C8?text=Tejido+1', alt: 'Ruana tejida a mano en telar' },
-  { src: 'https://placehold.co/400x300/4A6741/F5E6C8?text=Tejido+2', alt: 'Mochila de crochet multicolor' },
-  { src: 'https://placehold.co/400x300/C4852A/F5E6C8?text=Tejido+3', alt: 'Set bufanda y gorro artesanal' },
-  { src: 'https://placehold.co/800x300/7A5546/F5E6C8?text=Tejido+4', alt: 'Tapete de telar nariñense' },
-  { src: 'https://placehold.co/400x300/3D2B1F/F5E6C8?text=Tejido+5', alt: 'Detalle de tejido en palillo' },
-  { src: 'https://placehold.co/400x300/8B3A3A/F5E6C8?text=Tejido+6', alt: 'Artesana trabajando en telar' }
+  { src: 'assets/images/galeria-1.jpg', alt: 'Ruana tejida a mano en telar' },
+  { src: 'assets/images/galeria-2.jpg', alt: 'Mochila de crochet multicolor' },
+  { src: 'assets/images/galeria-3.jpg', alt: 'Set bufanda y gorro artesanal' },
+  { src: 'assets/images/galeria-4.jpg', alt: 'Tapete de telar nariñense' },
+  { src: 'assets/images/galeria-5.jpg', alt: 'Detalle de tejido en palillo' },
+  { src: 'assets/images/galeria-6.jpg', alt: 'Artesana trabajando en telar' }
 ];
 
 // =============================================
@@ -2336,6 +2519,7 @@ let productos = JSON.parse(localStorage.getItem('luc_productos') || 'null') || d
 let activeFilter = 'all';
 let adminUnlocked = false;
 let currentProductModal = null;
+let currentLightboxIndex = 0;
 
 // =============================================
 // RENDER PRODUCTS
@@ -2346,8 +2530,19 @@ function fmtPrecio(n) {
 
 function renderProductos() {
   const grid = document.getElementById('productos-grid');
-  const filtered = activeFilter === 'all' ? productos : productos.filter(p => p.cat === activeFilter);
-  grid.innerHTML = filtered.map(p => `
+  const q = (document.getElementById('catalogo-search')?.value || '').toLowerCase().trim();
+  let filtered = activeFilter === 'all' ? productos : productos.filter(p => p.cat === activeFilter);
+  if (q) {
+    filtered = filtered.filter(p =>
+      p.nombre.toLowerCase().includes(q) ||
+      p.catLabel.toLowerCase().includes(q) ||
+      (p.desc || '').toLowerCase().includes(q)
+    );
+  }
+  if (filtered.length === 0) {
+    grid.innerHTML = '<p style="text-align:center;padding:3rem 1rem;color:var(--gris-lana);">No encontramos productos que coincidan con tu búsqueda.</p>';
+  } else {
+    grid.innerHTML = filtered.map(p => `
     <article class="producto-card ${p.estado === 'agotado' ? 'agotado' : ''} reveal"
       data-id="${p.id}" role="listitem"
       aria-label="${p.nombre} — ${fmtPrecio(p.precio)}${p.estado === 'agotado' ? ' (Agotado)' : ''}">
@@ -2360,8 +2555,8 @@ function renderProductos() {
         </div>
         ${p.estado !== 'agotado' ? `
         <div class="producto-actions">
-          <button class="producto-action-btn wa" onclick="pedirPorWA(${p.id})">📱 Pedir</button>
-          <button class="producto-action-btn info" onclick="openProductModal(${p.id})">Ver más</button>
+          <button class="producto-action-btn wa" data-action="add-cart" data-id="${p.id}">🛒 Agregar</button>
+          <button class="producto-action-btn info" data-action="ver-mas" data-id="${p.id}">Ver más</button>
         </div>` : ''}
       </div>
       <div class="producto-body">
@@ -2369,7 +2564,7 @@ function renderProductos() {
         <h3 class="producto-nombre">${p.nombre}</h3>
         <div class="producto-footer">
           <div class="producto-precio">
-            ${p.precioAntes ? `<span class="producto-precio-old">${fmtPrecio(p.precioAntes)}</span>` : ''}
+            ${p.precioAntes ? '<span class="producto-precio-old">' + fmtPrecio(p.precioAntes) + '</span>' : ''}
             ${fmtPrecio(p.precio)}
           </div>
           ${p.personalizable ? '<span class="producto-personalizable">✏️ Personalizable</span>' : ''}
@@ -2377,6 +2572,7 @@ function renderProductos() {
       </div>
     </article>
   `).join('');
+  }
   observeReveal();
 }
 
@@ -2398,10 +2594,9 @@ function renderCombos() {
             <span class="combo-precio-actual">${fmtPrecio(c.precioActual)}</span>
             <span class="combo-precio-old">${fmtPrecio(c.precioAntes)}</span>
           </div>
-          <a href="https://wa.me/573000000000?text=Hola!%20Me%20interesa%20el%20combo%20${encodeURIComponent(c.nombre)}"
-            class="btn-primary" target="_blank" rel="noopener" style="padding:0.6rem 1rem; font-size:0.82rem;">
-            Pedir →
-          </a>
+                      <button class="btn-primary" data-action="pedir-combo" data-combo="${c.nombre}" style="padding:0.6rem 1rem; font-size:0.82rem;">
+              🛒 Agregar
+            </button>
         </div>
         <div class="combo-ahorro">Ahorras ${fmtPrecio(c.precioAntes - c.precioActual)}</div>
       </div>
@@ -2414,8 +2609,8 @@ function renderGaleria() {
   const grid = document.getElementById('galeria-grid');
   grid.innerHTML = galeriaImgs.map((img, i) => `
     <div class="galeria-item reveal" role="listitem" tabindex="0"
-      onclick="openLightbox('${img.src}', '${img.alt}')"
-      onkeydown="if(event.key==='Enter') openLightbox('${img.src}', '${img.alt}')">
+      data-action="lightbox-open" data-img="${img.src}" data-alt="${img.alt}"
+      data-action="lightbox-open" data-img="${img.src}" data-alt="${img.alt}">
       <img src="${img.src}" alt="${img.alt}" loading="lazy">
       <div class="galeria-overlay" aria-hidden="true"><span>🔍</span></div>
     </div>
@@ -2434,6 +2629,35 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     renderProductos();
   });
 });
+
+
+
+// =============================================
+// FOCUS TRAP — Accesibilidad mejorada
+// =============================================
+let lastFocusedElement = null;
+
+function trapFocus(modalId) {
+  const modal = document.getElementById(modalId);
+  const focusableEls = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  const firstFocusable = focusableEls[0];
+  const lastFocusable = focusableEls[focusableEls.length - 1];
+  lastFocusedElement = document.activeElement;
+  setTimeout(() => {
+    const closeBtn = modal.querySelector('[aria-label*="Cerrar"], button');
+    (closeBtn || firstFocusable)?.focus();
+  }, 50);
+  modal.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === firstFocusable) { e.preventDefault(); lastFocusable?.focus(); }
+      else if (!e.shiftKey && document.activeElement === lastFocusable) { e.preventDefault(); firstFocusable?.focus(); }
+    }
+  });
+}
+
+function releaseFocusTrap() {
+  if (lastFocusedElement) lastFocusedElement.focus();
+}
 
 // =============================================
 // MODALS
@@ -2455,7 +2679,7 @@ function openProductModal(id) {
       class="btn-primary" target="_blank" rel="noopener" style="justify-content:center;">
       📱 Pedir por WhatsApp
     </a>
-    <button class="btn-outline" onclick="closeProductModal()" style="justify-content:center;">Cerrar</button>
+    <button class="btn-outline" data-action="close-product-modal" style="justify-content:center;">Cerrar</button>
   `;
   document.getElementById('product-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -2464,19 +2688,54 @@ function openProductModal(id) {
 function closeProductModal() {
   document.getElementById('product-modal').classList.remove('open');
   document.body.style.overflow = '';
+  releaseFocusTrap();
 }
 
 function openLightbox(src, alt) {
+  const idx = galeriaImgs.findIndex(i => i.src === src);
+  currentLightboxIndex = idx >= 0 ? idx : 0;
   document.getElementById('lightbox-img').src = src;
   document.getElementById('lightbox-img').alt = alt;
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
+  trapFocus('lightbox');
 }
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
+  releaseFocusTrap();
 }
+
+function navigateLightbox(direction) {
+  currentLightboxIndex += direction;
+  if (currentLightboxIndex < 0) currentLightboxIndex = galeriaImgs.length - 1;
+  if (currentLightboxIndex >= galeriaImgs.length) currentLightboxIndex = 0;
+  const img = galeriaImgs[currentLightboxIndex];
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox-img').alt = img.alt;
+}
+
+// Swipe support para móviles
+let touchStartX = 0;
+document.getElementById('lightbox')?.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+});
+document.getElementById('lightbox')?.addEventListener('touchend', e => {
+  const touchEndX = e.changedTouches[0].clientX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 50) {
+    navigateLightbox(diff > 0 ? 1 : -1);
+  }
+});
+
+// Keyboard navigation para lightbox
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox')?.classList.contains('open')) {
+    if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+  }
+});
 
 document.getElementById('lightbox').addEventListener('click', function(e) {
   if (e.target === this) closeLightbox();
@@ -2505,11 +2764,13 @@ function scrollToSection(id) {
 function openAdmin() {
   document.getElementById('admin-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  trapFocus('admin-modal');
 }
 
 function closeAdmin() {
   document.getElementById('admin-modal').classList.remove('open');
   document.body.style.overflow = '';
+  releaseFocusTrap();
 }
 
 function checkAdminPwd() {
@@ -2582,7 +2843,268 @@ function resetToDefaults() {
   msgEl.textContent = 'Productos restaurados a valores originales.';
 }
 
-document.getElementById('admin-float-btn').addEventListener('click', openAdmin);
+
+// =============================================
+// CART
+// =============================================
+let cart = JSON.parse(localStorage.getItem('luc_cart') || '[]');
+
+function addToCart(id) {
+  const p = productos.find(x => x.id === id);
+  if (!p) return;
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty = (existing.qty || 1) + 1;
+  } else {
+    cart.push({ id: p.id, nombre: p.nombre, precio: p.precio, img: p.img, qty: 1 });
+  }
+  saveCart();
+  renderCart();
+  showCartFeedback(p.nombre);
+}
+
+function addComboToCart(nombre, precio, img) {
+  const existing = cart.find(c => c.nombre === nombre && c.id < 0);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ id: -Date.now(), nombre, precio, img: img || 'assets/images/og-image.jpg', qty: 1 });
+  }
+  saveCart();
+  renderCart();
+  showCartFeedback(nombre);
+}
+
+function removeFromCart(idx) {
+  cart.splice(idx, 1);
+  saveCart();
+  renderCart();
+}
+
+function clearCart() {
+  if (cart.length === 0) return;
+  cart = [];
+  saveCart();
+  renderCart();
+}
+
+function saveCart() {
+  localStorage.setItem('luc_cart', JSON.stringify(cart));
+  updateCartBadge();
+}
+
+function getCartTotal() {
+  return cart.reduce((sum, c) => sum + c.precio * (c.qty || 1), 0);
+}
+
+function renderCart() {
+  const container = document.getElementById('cart-items');
+  const footer = document.getElementById('cart-footer');
+  if (!container) return;
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty">Tu carrito está vacío<br><span style="font-size:0.8rem;">Agrega productos desde el catálogo</span></div>';
+    footer.classList.add('hidden');
+    return;
+  }
+  footer.classList.remove('hidden');
+  container.innerHTML = cart.map((c, i) => `
+    <div class="cart-item">
+      <img src="${c.img}" alt="${c.nombre}" class="cart-item-img" loading="lazy">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${c.nombre}</div>
+        <div class="cart-item-precio">${fmtPrecio(c.precio)} ${c.qty > 1 ? '× ' + c.qty : ''}</div>
+      </div>
+      <button class="cart-item-remove" data-action="cart-remove" data-index="${i}" aria-label="Eliminar ${c.nombre}">✕</button>
+    </div>
+  `).join('');
+  document.getElementById('cart-total-val').textContent = fmtPrecio(getCartTotal());
+}
+
+function updateCartBadge() {
+  const count = cart.reduce((s, c) => s + (c.qty || 1), 0);
+  let badge = document.querySelector('#cart-btn .cart-count-badge');
+  const label = document.getElementById('cart-count-label');
+  if (count > 0) {
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.className = 'cart-count-badge';
+      document.getElementById('cart-btn').appendChild(badge);
+    }
+    badge.textContent = count;
+    if (label) label.textContent = 'Pedir (' + count + ')';
+  } else {
+    if (badge) badge.remove();
+    if (label) label.textContent = 'Pedir';
+  }
+}
+
+function showCartFeedback(nombre) {
+  const label = document.getElementById('cart-count-label');
+  if (!label) return;
+  const orig = label.textContent;
+  label.textContent = '✅ Agregado';
+  setTimeout(() => { label.textContent = orig; updateCartBadge(); }, 1500);
+}
+
+function openCart() {
+  const el = document.getElementById('cart-modal');
+  if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; renderCart(); }
+}
+
+function closeCart() {
+  const el = document.getElementById('cart-modal');
+  if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+}
+
+function checkoutCart() {
+  if (cart.length === 0) return;
+  const items = cart.map(c => '• ' + c.nombre + ' × ' + (c.qty || 1) + ' = ' + fmtPrecio(c.precio * (c.qty || 1))).join('\n');
+  const total = fmtPrecio(getCartTotal());
+  const msg = 'Hola! Quiero hacer el siguiente pedido:\n\n' + items + '\n\nTotal: ' + total;
+  window.open('https://wa.me/573000000000?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// =============================================
+// CENTRAL EVENT DELEGATION
+// =============================================
+(function() {
+  document.addEventListener('click', function(e) {
+    const el = e.target.closest('[data-action]');
+    if (!el) return;
+    const action = el.dataset.action;
+
+    switch (action) {
+      case 'add-cart': {
+        const id = parseInt(el.dataset.id);
+        if (id) addToCart(id);
+        break;
+      }
+      case 'pedir-combo': {
+        const comboName = el.dataset.combo;
+        const combo = defaultCombos.find(function(c) { return c.nombre === comboName; });
+        if (combo) addComboToCart(comboName, combo.precioActual, combo.imgs[0]);
+        break;
+      }
+      case 'ver-mas': {
+        const id = parseInt(el.dataset.id);
+        if (id) openProductModal(id);
+        break;
+      }
+      case 'scroll-catalogo':
+        document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'cerrar-modal-producto':
+        closeProductModal();
+        break;
+      case 'lightbox-prev':
+        navigateLightbox(-1);
+        break;
+      case 'lightbox-next':
+        navigateLightbox(1);
+        break;
+      case 'lightbox-open': {
+        const img = el.dataset.img;
+        if (img) openLightbox(img);
+        break;
+      }
+      case 'toggle-cart':
+        openCart();
+        break;
+      case 'cart-checkout':
+        checkoutCart();
+        break;
+      case 'cart-clear':
+        clearCart();
+        break;
+      case 'cart-remove': {
+        const idx = parseInt(el.dataset.index);
+        if (!isNaN(idx)) removeFromCart(idx);
+        break;
+      }
+      case 'enviar-form':
+        enviarFormulario();
+        break;
+      case 'close-cart':
+        closeCart();
+        break;
+      case 'admin-open':
+        openAdmin();
+        break;
+      case 'admin-login':
+        checkAdminPwd();
+        break;
+      case 'admin-save':
+        saveAdminChanges();
+        break;
+      case 'admin-reset':
+        resetToDefaults();
+        break;
+      case 'admin-close':
+        closeAdmin();
+        break;
+      case 'close-lightbox':
+        closeLightbox();
+        break;
+      case 'close-product-modal':
+        closeProductModal();
+        break;
+    }
+  });
+
+  // Admin thumb live preview
+  document.addEventListener('input', function(e) {
+    const el = e.target;
+    if (el.dataset.thumbFor) {
+      const thumb = document.getElementById('admin-thumb-' + el.dataset.thumbFor);
+      if (thumb) thumb.src = el.value;
+    }
+  });
+})();
+
+// =============================================
+// SEARCH INPUT
+// =============================================
+(function() {
+  const si = document.getElementById('catalogo-search');
+  if (si) {
+    si.addEventListener('input', function() { renderProductos(); });
+  }
+})();
+
+// =============================================
+// DARK MODE TOGGLE
+// =============================================
+(function() {
+  const dt = document.getElementById('dark-mode-toggle');
+  if (dt) {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    dt.addEventListener('click', function() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      dt.textContent = isDark ? '🌙' : '☀️';
+    });
+  }
+})();
+
+// =============================================
+// CART OVERLAY CLICK
+// =============================================
+(function() {
+  const cm = document.getElementById('cart-modal');
+  if (cm) {
+    cm.addEventListener('click', function(e) {
+      if (e.target === this) closeCart();
+    });
+  }
+})();
+
+// Init cart
+renderCart();
+updateCartBadge();
+
 document.getElementById('admin-modal').addEventListener('click', function(e) {
   if (e.target === this) closeAdmin();
 });
@@ -2662,11 +3184,26 @@ function observeReveal() {
 // =============================================
 // COUNTDOWN (próximos 30 días)
 // =============================================
+function getCountdownTarget() {
+  const stored = localStorage.getItem('promo_target');
+  if (stored) {
+    const t = new Date(stored);
+    if (t > new Date()) return t;
+  }
+  const now = new Date();
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+  const target = new Date(endOfMonth.getTime() + 15 * 24 * 60 * 60 * 1000);
+  localStorage.setItem('promo_target', target.toISOString());
+  return target;
+}
 function updateCountdown() {
-  const target = new Date();
-  target.setDate(target.getDate() + 30);
+  const target = getCountdownTarget();
   const now = new Date();
   const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('countdown-dias').textContent = '0';
+    return;
+  }
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const el = document.getElementById('countdown-dias');
   if (el) el.textContent = days;
@@ -2691,7 +3228,28 @@ document.addEventListener('keydown', e => {
 renderProductos();
 renderCombos();
 renderGaleria();
+renderCart();
+updateCartBadge();
 observeReveal();
+document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+
+
+// =============================================
+// DARK MODE TOGGLE
+// =============================================
+const darkToggle = document.getElementById('dark-mode-toggle');
+if (darkToggle) {
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  darkToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    darkToggle.textContent = isDark ? '🌙' : '☀️';
+  });
+}
 
 // Active nav link on scroll
 const sections = document.querySelectorAll('section[id]');
@@ -2705,5 +3263,28 @@ window.addEventListener('scroll', () => {
   });
 }, { passive: true });
 </script>
+
+<!-- CART MODAL -->
+<div class="cart-overlay" id="cart-modal">
+  <div class="cart-drawer" role="dialog" aria-label="Carrito de compras">
+    <div class="cart-header">
+      <h3>🛒 Tu pedido</h3>
+      <button class="cart-close" data-action="close-cart" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">Tu carrito está vacío<br><span style="font-size:0.8rem;">Agrega productos desde el catálogo</span></div>
+    </div>
+    <div class="cart-footer hidden" id="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="cart-total-val" id="cart-total-val">$0</span>
+      </div>
+      <div class="cart-actions">
+        <button class="btn-primary" data-action="cart-checkout">Solicitar por WhatsApp</button>
+        <button class="btn-outline" data-action="cart-clear" style="justify-content:center;">Vaciar</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

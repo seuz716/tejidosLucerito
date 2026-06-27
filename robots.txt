@@ -1,0 +1,7 @@
+# robots.txt - Tejidos Lucerito
+# https://tejidoslucerito.com
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tejidoslucerito.com/sitemap.xml
