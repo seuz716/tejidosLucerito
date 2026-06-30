@@ -17,6 +17,11 @@
 <meta name="twitter:description" content="Tejidos artesanales de mujeres campesinas de Gualmatán, Nariño, Colombia.">
 <link rel="canonical" href="https://tejidoslucerito.onrender.com">
 <title>Tejidos Lucerito – Artesanía de Corazón | Gualmatán, Nariño</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preload" href="assets/css/styles.css" as="style">
+<link rel="preload" href="assets/js/main.js" as="script">
+<link rel="preload" href="images/h0duS-PT.jpeg" as="image">
+<meta name="theme-color" content="#5C4033">
 
 <!-- Structured Data / Schema.org -->
 <script type="application/ld+json">
@@ -683,6 +688,28 @@ function imgOnError(el) {
   </div>
 </div>
 
-<script src="assets/js/main.js"></script>
+<!-- CART MODAL -->
+<div class="cart-overlay" id="cart-modal" aria-hidden="true">
+  <div class="cart-drawer" role="dialog" aria-label="Carrito de compras">
+    <div class="cart-header">
+      <h3>🛒 Tu pedido</h3>
+      <button class="cart-close" data-action="close-cart" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">Tu carrito está vacío<br><span style="font-size:0.8rem;">Agrega productos desde el catálogo</span></div>
+    </div>
+    <div class="cart-footer hidden" id="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="cart-total-val" id="cart-total-val">$0</span>
+      </div>
+      <div class="cart-actions">
+        <button class="btn-primary" data-action="cart-checkout">Solicitar por WhatsApp</button>
+        <button class="btn-outline" data-action="cart-clear" style="justify-content:center;">Vaciar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div aria-live="polite" aria-atomic="true" class="sr-only" id="cart-notification"></div>
 </body>
 </html>
