@@ -1328,6 +1328,8 @@ footer {
   gap: 1rem;
 }
 .footer-copy { font-size: 0.78rem; }
+.footer-dev { font-size: 0.7rem; color: var(--gris-lana); margin-top: 0.25rem; letter-spacing: 0.05em; }
+.footer-dev span { color: var(--rojo-nudo); }
 .footer-craft {
   font-size: 0.78rem;
   color: var(--mostaza);
