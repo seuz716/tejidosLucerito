@@ -185,7 +185,13 @@ const galeriaImgs = [
 // =============================================
 // STATE
 // =============================================
-let productos = JSON.parse(localStorage.getItem('luc_productos') || 'null') || defaultProductos;
+let productos = JSON.parse(localStorage.getItem('luc_productos') || 'null');
+if (productos) {
+  productos = productos.map(p => ({...p, img: p.img.replace(/^\/images\//, 'images/')}));
+  localStorage.setItem('luc_productos', JSON.stringify(productos));
+} else {
+  productos = defaultProductos;
+}
 let activeFilter = 'all';
 let adminUnlocked = false;
 let currentProductModal = null;
