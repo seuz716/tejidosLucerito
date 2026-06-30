@@ -32,7 +32,7 @@ const defaultProductos = [
     precio: 95000, precioAntes: null,
     estado: 'disponible', nuevo: true,
     personalizable: true,
-    img: '/images/-j2HIgfU.jpeg',
+    img: 'images/-j2HIgfU.jpeg',
     desc: 'Tejida en telar de pie con lana de oveja 100% natural. Gruesa, cálida, impermeable. Disponible en colores tierra, negro, gris páramo y burdeos.',
     detalles: { Material: 'Lana de oveja 100%', Técnica: 'Telar de pie', Tiempo: '4-6 días', Tallas: 'S, M, L, XL', Cuidado: 'Lavado a mano agua fría' }
   },
@@ -42,7 +42,7 @@ const defaultProductos = [
     precio: 75000, precioAntes: 90000,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: '/images/2cIkc2C-.jpeg',
+    img: 'images/2cIkc2C-.jpeg',
     desc: 'Crochet elaborado con hilo grueso de algodón. Colores basados en la paleta nariñense. Cierre de botón artesanal y correa ajustable.',
     detalles: { Material: 'Hilo algodón', Técnica: 'Crochet', Tiempo: '3-5 días', Capacidad: '8 litros aprox.', Cuidado: 'Lavado suave a mano' }
   },
@@ -52,7 +52,7 @@ const defaultProductos = [
     precio: 55000, precioAntes: null,
     estado: 'disponible', nuevo: true,
     personalizable: true,
-    img: '/images/2fVInDbL.jpeg',
+    img: 'images/2fVInDbL.jpeg',
     desc: 'Set combinado tejido en palillo con lana virgen. La bufanda mide 160cm y el gorro viene en talla única con dobladillo ajustable.',
     detalles: { Material: 'Lana virgen', Técnica: 'Palillo / agujas', Tiempo: '2-3 días', Colores: '8 combinaciones disponibles', Cuidado: 'Lavado a mano' }
   },
@@ -62,7 +62,7 @@ const defaultProductos = [
     precio: 85000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: false,
-    img: '/images/4S6Q7ukd.jpeg',
+    img: 'images/4S6Q7ukd.jpeg',
     desc: 'Tejido en telar con hilo de yute y lana reciclada. Diámetro 80cm. Ideal para sala o comedor. Cada uno es diferente, no hay dos iguales.',
     detalles: { Material: 'Yute + lana reciclada', Técnica: 'Telar de pie', Dimensión: '80 cm diámetro', Tiempo: '5-7 días', Cuidado: 'Sacudir, no lavar' }
   },
@@ -72,7 +72,7 @@ const defaultProductos = [
     precio: 35000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: '/images/5d1kL5l1.jpeg',
+    img: 'images/5d1kL5l1.jpeg',
     desc: 'Suave, hipoalergénico, perfecto para recién nacidos y bebés hasta 18 meses. Disponible en varios colores pastel y con borla opcional.',
     detalles: { Material: 'Hilo algodón baby', Técnica: 'Palillo', Tallas: '0-6m, 6-12m, 12-18m', Tiempo: '1-2 días', Cuidado: 'Lavado delicado 30°' }
   },
@@ -82,7 +82,7 @@ const defaultProductos = [
     precio: 120000, precioAntes: 145000,
     estado: 'disponible', nuevo: false,
     personalizable: false,
-    img: '/images/8CkPeEn0.jpeg',
+    img: 'images/8CkPeEn0.jpeg',
     desc: 'Grande, versátil y abrigadora. Úsala como ruana, manta de sofá o colcha ligera. Tejida en telar con lana mezclada, diseño geométrico nariñense.',
     detalles: { Material: 'Lana mezclada', Técnica: 'Telar de pie', Dimensión: '180x140 cm', Tiempo: '7-10 días', Cuidado: 'Lavado a mano agua tibia' }
   },
@@ -92,7 +92,7 @@ const defaultProductos = [
     precio: 48000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: '/images/ABO_xAJ3.jpeg',
+    img: 'images/ABO_xAJ3.jpeg',
     desc: 'Abierto, resistente, ideal para mercado o playa. Tejido en macramé y crochet con hilo de algodón grueso. Se dobla y cabe en el bolsillo.',
     detalles: { Material: 'Algodón grueso', Técnica: 'Crochet + macramé', Tiempo: '2-3 días', Colores: '6 opciones', Cuidado: 'Lavado a mano' }
   },
@@ -102,7 +102,7 @@ const defaultProductos = [
     precio: 28000, precioAntes: null,
     estado: 'agotado', nuevo: false,
     personalizable: false,
-    img: '/images/D0oMSe5d.jpeg',
+    img: 'images/D0oMSe5d.jpeg',
     desc: 'Tejidas en palillo con lana virgen nariñense. Gruesas, sin costuras, perfectas para el frío. Disponibles en talla S-M y M-L.',
     detalles: { Material: 'Lana virgen', Técnica: 'Palillo circular', Tallas: 'S-M / M-L', Tiempo: '2-3 días', Cuidado: 'Lavado a mano frío' }
   }
@@ -156,30 +156,30 @@ function imgOnError(el, src) {
 }
 
 const galeriaImgs = [
-  { src: '/images/-j2HIgfU.jpeg', alt: 'Ruana tejida a mano en telar' },
-  { src: '/images/2cIkc2C-.jpeg', alt: 'Mochila de crochet multicolor' },
-  { src: '/images/2fVInDbL.jpeg', alt: 'Set bufanda y gorro artesanal' },
-  { src: '/images/4S6Q7ukd.jpeg', alt: 'Tapete de telar nariñense' },
-  { src: '/images/5d1kL5l1.jpeg', alt: 'Detalle de tejido en palillo' },
-  { src: '/images/8CkPeEn0.jpeg', alt: 'Artesana trabajando en telar' },
-  { src: '/images/ABO_xAJ3.jpeg', alt: 'Manta andina' },
-  { src: '/images/D0oMSe5d.jpeg', alt: 'Producto artesanal' },
-  { src: '/images/I-KeqwjX.jpeg', alt: 'Tejido tradicional' },
-  { src: '/images/Qk5deWSx.jpeg', alt: 'Ruana de lana' },
-  { src: '/images/RyXD7U_f.jpeg', alt: 'Mochila artesanal' },
-  { src: '/images/Y5e04J4G.jpeg', alt: 'Accesorio de lana' },
-  { src: '/images/_ZKDwEYC.jpeg', alt: 'Producto nariñense' },
-  { src: '/images/cgcvFhRD.jpeg', alt: 'Tejido en telar' },
-  { src: '/images/gxICe-hO.jpeg', alt: 'Artesania campesina' },
-  { src: '/images/h0duS-PT.jpeg', alt: 'Producto único' },
-  { src: '/images/jTRVo9Pf.jpeg', alt: 'Manta tejida' },
-  { src: '/images/msWJyv8j.jpeg', alt: 'Bufanda páramo' },
-  { src: '/images/otubdlel.jpeg', alt: 'Gorro de lana' },
-  { src: '/images/qGUMwu7e.jpeg', alt: 'Bolso crochet' },
-  { src: '/images/rmmYhQdW.jpeg', alt: 'Producto especial' },
-  { src: '/images/vDOIHA_2.jpeg', alt: 'Tejido artesanal' },
-  { src: '/images/z-jM594v.jpeg', alt: 'Producto nariño' },
-  { src: '/images/z2xe92Kv.jpeg', alt: 'Manta y ruana' }
+  { src: 'images/-j2HIgfU.jpeg', alt: 'Ruana tejida a mano en telar' },
+  { src: 'images/2cIkc2C-.jpeg', alt: 'Mochila de crochet multicolor' },
+  { src: 'images/2fVInDbL.jpeg', alt: 'Set bufanda y gorro artesanal' },
+  { src: 'images/4S6Q7ukd.jpeg', alt: 'Tapete de telar nariñense' },
+  { src: 'images/5d1kL5l1.jpeg', alt: 'Detalle de tejido en palillo' },
+  { src: 'images/8CkPeEn0.jpeg', alt: 'Artesana trabajando en telar' },
+  { src: 'images/ABO_xAJ3.jpeg', alt: 'Manta andina' },
+  { src: 'images/D0oMSe5d.jpeg', alt: 'Producto artesanal' },
+  { src: 'images/I-KeqwjX.jpeg', alt: 'Tejido tradicional' },
+  { src: 'images/Qk5deWSx.jpeg', alt: 'Ruana de lana' },
+  { src: 'images/RyXD7U_f.jpeg', alt: 'Mochila artesanal' },
+  { src: 'images/Y5e04J4G.jpeg', alt: 'Accesorio de lana' },
+  { src: 'images/_ZKDwEYC.jpeg', alt: 'Producto nariñense' },
+  { src: 'images/cgcvFhRD.jpeg', alt: 'Tejido en telar' },
+  { src: 'images/gxICe-hO.jpeg', alt: 'Artesania campesina' },
+  { src: 'images/h0duS-PT.jpeg', alt: 'Producto único' },
+  { src: 'images/jTRVo9Pf.jpeg', alt: 'Manta tejida' },
+  { src: 'images/msWJyv8j.jpeg', alt: 'Bufanda páramo' },
+  { src: 'images/otubdlel.jpeg', alt: 'Gorro de lana' },
+  { src: 'images/qGUMwu7e.jpeg', alt: 'Bolso crochet' },
+  { src: 'images/rmmYhQdW.jpeg', alt: 'Producto especial' },
+  { src: 'images/vDOIHA_2.jpeg', alt: 'Tejido artesanal' },
+  { src: 'images/z-jM594v.jpeg', alt: 'Producto nariño' },
+  { src: 'images/z2xe92Kv.jpeg', alt: 'Manta y ruana' }
 ];
 
 // =============================================
@@ -347,11 +347,11 @@ function openProductModal(id) {
   document.getElementById('modal-product-precio').textContent = fmtPrecio(p.precio);
   document.getElementById('modal-product-details').innerHTML = Object.entries(p.detalles || {})
     .map(([k,v]) => `<div class="modal-detail-row"><span class="modal-detail-key">${k}</span><span class="modal-detail-val">${v}</span></div>`).join('');
-  document.getElementById('modal-product-actions').innerHTML = `
-    <a href="https://wa.me/573000000000?text=Hola!%20Me%20interesa%20${encodeURIComponent(p.nombre)}%20(${fmtPrecio(p.precio)})" 
-      class="btn-primary" target="_blank" rel="noopener" style="justify-content:center;">
-      📱 Pedir por WhatsApp
-    </a>
+document.getElementById('modal-product-actions').innerHTML = `
+     <a href="${getWhatsAppLink(`?text=Hola!%20Me%20interesa%20${encodeURIComponent(p.nombre)}%20(${fmtPrecio(p.precio)})`)}" 
+       class="btn-primary" target="_blank" rel="noopener" style="justify-content:center;">
+       📱 Pedir por WhatsApp
+     </a>
     <button class="btn-outline" data-action="close-product-modal" style="justify-content:center;">Cerrar</button>
   `;
   document.getElementById('product-modal').classList.add('open');
@@ -428,7 +428,7 @@ function pedirPorWA(id) {
   const p = productos.find(x => x.id === id);
   if (!p) return;
   const msg = `Hola! Me interesa *${p.nombre}* (${fmtPrecio(p.precio)}). ¿Está disponible?`;
-  window.open('https://wa.me/573000000000?text=' + encodeURIComponent(msg), '_blank');
+  window.open(getWhatsAppLink('?text=' + encodeURIComponent(msg)), '_blank');
 }
 
 function scrollToSection(id) {
@@ -640,7 +640,7 @@ function checkoutCart() {
   const items = cart.map(c => '• ' + c.nombre + ' × ' + (c.qty || 1) + ' = ' + fmtPrecio(c.precio * (c.qty || 1))).join('\n');
   const total = fmtPrecio(getCartTotal());
   const msg = 'Hola! Quiero hacer el siguiente pedido:\n\n' + items + '\n\nTotal: ' + total;
-  window.open('https://wa.me/573000000000?text=' + encodeURIComponent(msg), '_blank');
+  window.open(getWhatsAppLink('?text=' + encodeURIComponent(msg)), '_blank');
 }
 
 // =============================================
@@ -838,7 +838,7 @@ function enviarFormulario() {
   const msgEl = document.getElementById('form-msg');
 
   const waText = `Hola! Soy ${nombre}. Me interesa: ${interes || 'consulta general'}. ${mensaje ? 'Mensaje: ' + mensaje : ''}. Contacto: ${contacto}`;
-  window.open('https://wa.me/573000000000?text=' + encodeURIComponent(waText), '_blank');
+  window.open(getWhatsAppLink('?text=' + encodeURIComponent(waText)), '_blank');
 
   msgEl.className = 'admin-msg ok';
   msgEl.style.display = 'block';
