@@ -1,0 +1,14 @@
+# Python
+*.py
+__pycache__/
+
+# Poolside local
+.poolside/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
