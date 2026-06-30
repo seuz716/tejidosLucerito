@@ -948,21 +948,7 @@ document.getElementById('footer-year').textContent = new Date().getFullYear();
 
 
 
-// =============================================
-// DARK MODE TOGGLE
-// =============================================
-const darkToggle = document.getElementById('dark-mode-toggle');
-if (darkToggle) {
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  darkToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const newTheme = isDark ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    darkToggle.textContent = isDark ? '🌙' : '☀️';
-  });
-}
+
 
 // Active nav link on scroll
 const sections = document.querySelectorAll('section[id]');
