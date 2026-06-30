@@ -5,7 +5,7 @@ const ADMIN_PASSWORD = 'lucerito2025'; // Cambia esto
 
 // CONFIG — Actualiza estos valores con tus datos reales
 const CONFIG = {
-  whatsapp: '573212345678',
+  whatsapp: '573135498917',
   instagram: 'tejidoslucerito',
   facebook: 'tejidoslucerito',
   email: 'info@tejidoslucerito.com',
