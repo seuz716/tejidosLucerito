@@ -16,6 +16,15 @@ function getWhatsAppLink(text = '') {
   return `https://wa.me/${CONFIG.whatsapp}${text ? '?text=' + encodeURIComponent(text) : ''}`;
 }
 
+function getRandomImg() {
+  const imgs = document.querySelectorAll('img[data-random]');
+  imgs.forEach(img => {
+    const randomIndex = Math.floor(Math.random() * galeriaImgs.length);
+    img.src = galeriaImgs[randomIndex].src;
+    img.alt = galeriaImgs[randomIndex].alt;
+  });
+}
+
 const defaultProductos = [
   {
     id: 1, cat: 'ruanas', catLabel: 'Ruanas y mantas',
@@ -23,7 +32,7 @@ const defaultProductos = [
     precio: 95000, precioAntes: null,
     estado: 'disponible', nuevo: true,
     personalizable: true,
-    img: 'assets/images/prod-placeholder.svg',
+    img: 'images/-j2HIgfU.jpeg',
     desc: 'Tejida en telar de pie con lana de oveja 100% natural. Gruesa, cálida, impermeable. Disponible en colores tierra, negro, gris páramo y burdeos.',
     detalles: { Material: 'Lana de oveja 100%', Técnica: 'Telar de pie', Tiempo: '4-6 días', Tallas: 'S, M, L, XL', Cuidado: 'Lavado a mano agua fría' }
   },
@@ -33,7 +42,7 @@ const defaultProductos = [
     precio: 75000, precioAntes: 90000,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: 'assets/images/prod-mochila.svg',
+    img: 'images/2cIkc2C-.jpeg',
     desc: 'Crochet elaborado con hilo grueso de algodón. Colores basados en la paleta nariñense. Cierre de botón artesanal y correa ajustable.',
     detalles: { Material: 'Hilo algodón', Técnica: 'Crochet', Tiempo: '3-5 días', Capacidad: '8 litros aprox.', Cuidado: 'Lavado suave a mano' }
   },
@@ -43,7 +52,7 @@ const defaultProductos = [
     precio: 55000, precioAntes: null,
     estado: 'disponible', nuevo: true,
     personalizable: true,
-    img: 'assets/images/prod-accesorios.svg',
+    img: 'images/2fVInDbL.jpeg',
     desc: 'Set combinado tejido en palillo con lana virgen. La bufanda mide 160cm y el gorro viene en talla única con dobladillo ajustable.',
     detalles: { Material: 'Lana virgen', Técnica: 'Palillo / agujas', Tiempo: '2-3 días', Colores: '8 combinaciones disponibles', Cuidado: 'Lavado a mano' }
   },
@@ -53,7 +62,7 @@ const defaultProductos = [
     precio: 85000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: false,
-    img: 'assets/images/prod-hogar.svg',
+    img: 'images/4S6Q7ukd.jpeg',
     desc: 'Tejido en telar con hilo de yute y lana reciclada. Diámetro 80cm. Ideal para sala o comedor. Cada uno es diferente, no hay dos iguales.',
     detalles: { Material: 'Yute + lana reciclada', Técnica: 'Telar de pie', Dimensión: '80 cm diámetro', Tiempo: '5-7 días', Cuidado: 'Sacudir, no lavar' }
   },
@@ -63,7 +72,7 @@ const defaultProductos = [
     precio: 35000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: 'assets/images/prod-gorro.svg',
+    img: 'images/5d1kL5l1.jpeg',
     desc: 'Suave, hipoalergénico, perfecto para recién nacidos y bebés hasta 18 meses. Disponible en varios colores pastel y con borla opcional.',
     detalles: { Material: 'Hilo algodón baby', Técnica: 'Palillo', Tallas: '0-6m, 6-12m, 12-18m', Tiempo: '1-2 días', Cuidado: 'Lavado delicado 30°' }
   },
@@ -73,7 +82,7 @@ const defaultProductos = [
     precio: 120000, precioAntes: 145000,
     estado: 'disponible', nuevo: false,
     personalizable: false,
-    img: 'assets/images/prod-placeholder.svg',
+    img: 'images/8CkPeEn0.jpeg',
     desc: 'Grande, versátil y abrigadora. Úsala como ruana, manta de sofá o colcha ligera. Tejida en telar con lana mezclada, diseño geométrico nariñense.',
     detalles: { Material: 'Lana mezclada', Técnica: 'Telar de pie', Dimensión: '180x140 cm', Tiempo: '7-10 días', Cuidado: 'Lavado a mano agua tibia' }
   },
@@ -83,7 +92,7 @@ const defaultProductos = [
     precio: 48000, precioAntes: null,
     estado: 'disponible', nuevo: false,
     personalizable: true,
-    img: 'assets/images/prod-bolsito.svg',
+    img: 'images/ABO_xAJ3.jpeg',
     desc: 'Abierto, resistente, ideal para mercado o playa. Tejido en macramé y crochet con hilo de algodón grueso. Se dobla y cabe en el bolsillo.',
     detalles: { Material: 'Algodón grueso', Técnica: 'Crochet + macramé', Tiempo: '2-3 días', Colores: '6 opciones', Cuidado: 'Lavado a mano' }
   },
@@ -93,7 +102,7 @@ const defaultProductos = [
     precio: 28000, precioAntes: null,
     estado: 'agotado', nuevo: false,
     personalizable: false,
-    img: 'assets/images/prod-medias.svg',
+    img: 'images/D0oMSe5d.jpeg',
     desc: 'Tejidas en palillo con lana virgen nariñense. Gruesas, sin costuras, perfectas para el frío. Disponibles en talla S-M y M-L.',
     detalles: { Material: 'Lana virgen', Técnica: 'Palillo circular', Tallas: 'S-M / M-L', Tiempo: '2-3 días', Cuidado: 'Lavado a mano frío' }
   }
@@ -108,9 +117,9 @@ const defaultCombos = [
     precioAntes: 185000,
     badge: '16% off',
     imgs: [
-      'assets/images/prod-placeholder.svg',
-      'assets/images/prod-bufanda.svg',
-      'assets/images/prod-gorro.svg'
+      'images/MSWJyv8j.jpeg',
+      'images/otubdlel.jpeg',
+      'images/qGUMwu7e.jpeg'
     ]
   },
   {
@@ -121,9 +130,9 @@ const defaultCombos = [
     precioAntes: 220000,
     badge: '16% off',
     imgs: [
-      'assets/images/combo-hogar.svg',
-      'assets/images/prod-tapete.svg',
-      'assets/images/prod-placeholder.svg'
+      'images/rmmYhQdW.jpeg',
+      'images/vDOIHA_2.jpeg',
+      'images/z-jM594v.jpeg'
     ]
   },
   {
@@ -134,9 +143,9 @@ const defaultCombos = [
     precioAntes: 110000,
     badge: '16% off',
     imgs: [
-      'assets/images/prod-placeholder.svg',
-      'assets/images/prod-medias.svg',
-      'assets/images/prod-bolsito.svg'
+      'images/z2xe92Kv.jpeg',
+      'images/_ZKDwEYC.jpeg',
+      'images/gxICe-hO.jpeg'
     ]
   }
 ];
@@ -147,12 +156,30 @@ function imgOnError(el, src) {
 }
 
 const galeriaImgs = [
-  { src: 'assets/images/prod-placeholder.svg', alt: 'Ruana tejida a mano en telar' },
-  { src: 'assets/images/prod-mochila.svg', alt: 'Mochila de crochet multicolor' },
-  { src: 'assets/images/prod-accesorios.svg', alt: 'Set bufanda y gorro artesanal' },
-  { src: 'assets/images/prod-hogar.svg', alt: 'Tapete de telar nariñense' },
-  { src: 'assets/images/prod-bufanda.svg', alt: 'Detalle de tejido en palillo' },
-  { src: 'assets/images/tecnica-tejido.svg', alt: 'Artesana trabajando en telar' }
+  { src: 'images/-j2HIgfU.jpeg', alt: 'Ruana tejida a mano en telar' },
+  { src: 'images/2cIkc2C-.jpeg', alt: 'Mochila de crochet multicolor' },
+  { src: 'images/2fVInDbL.jpeg', alt: 'Set bufanda y gorro artesanal' },
+  { src: 'images/4S6Q7ukd.jpeg', alt: 'Tapete de telar nariñense' },
+  { src: 'images/5d1kL5l1.jpeg', alt: 'Detalle de tejido en palillo' },
+  { src: 'images/8CkPeEn0.jpeg', alt: 'Artesana trabajando en telar' },
+  { src: 'images/ABO_xAJ3.jpeg', alt: 'Manta andina' },
+  { src: 'images/D0oMSe5d.jpeg', alt: 'Producto artesanal' },
+  { src: 'images/I-KeqwjX.jpeg', alt: 'Tejido tradicional' },
+  { src: 'images/Qk5deWSx.jpeg', alt: 'Ruana de lana' },
+  { src: 'images/RyXD7U_f.jpeg', alt: 'Mochila artesanal' },
+  { src: 'images/Y5e04J4G.jpeg', alt: 'Accesorio de lana' },
+  { src: 'images/_ZKDwEYC.jpeg', alt: 'Producto nariñense' },
+  { src: 'images/cgcvFhRD.jpeg', alt: 'Tejido en telar' },
+  { src: 'images/gxICe-hO.jpeg', alt: 'Artesania campesina' },
+  { src: 'images/h0duS-PT.jpeg', alt: 'Producto único' },
+  { src: 'images/jTRVo9Pf.jpeg', alt: 'Manta tejida' },
+  { src: 'images/msWJyv8j.jpeg', alt: 'Bufanda páramo' },
+  { src: 'images/otubdlel.jpeg', alt: 'Gorro de lana' },
+  { src: 'images/qGUMwu7e.jpeg', alt: 'Bolso crochet' },
+  { src: 'images/rmmYhQdW.jpeg', alt: 'Producto especial' },
+  { src: 'images/vDOIHA_2.jpeg', alt: 'Tejido artesanal' },
+  { src: 'images/z-jM594v.jpeg', alt: 'Producto nariño' },
+  { src: 'images/z2xe92Kv.jpeg', alt: 'Manta y ruana' }
 ];
 
 // =============================================
