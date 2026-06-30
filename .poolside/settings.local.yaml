@@ -1,0 +1,17 @@
+tools:
+    shell:
+        allow:
+            - cd *
+            - sed *
+            - grep *
+            - head *
+            - git checkout *
+            - echo *
+            - tail *
+            - wc *
+            - /tmp/final_audit.sh
+            - node *
+            - ls *
+            - git status *
+            - git diff HEAD *
+            - python3 *
