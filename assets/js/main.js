@@ -116,11 +116,11 @@ const defaultCombos = [
     precioActual: 155000,
     precioAntes: 185000,
     badge: '16% off',
-    imgs: [
-      'images/MSWJyv8j.jpeg',
-      'images/otubdlel.jpeg',
-      'images/qGUMwu7e.jpeg'
-    ]
+imgs: [
+       'images/msWJyv8j.jpeg',
+       'images/otubdlel.jpeg',
+       'images/qGUMwu7e.jpeg'
+     ]
   },
   {
     id: 'c2',
