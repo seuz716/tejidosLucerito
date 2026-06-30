@@ -350,17 +350,17 @@ body::before {
 .hero-badge {
   position: absolute;
   bottom: 3rem;
-  left: -2rem;
+  left: 2rem;
   background: var(--tierra-deep);
   color: var(--crema);
   padding: 1.25rem 1.5rem;
   border-radius: var(--radius-md);
-  max-width: 220px;
+  max-width: 240px;
   box-shadow: 0 12px 36px rgba(0,0,0,0.2);
 }
 .hero-badge-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
 .hero-badge-text { font-size: 0.85rem; line-height: 1.5; }
-.hero-badge-strong { font-weight: 700; font-size: 0.95rem; color: var(--crema-warm); }
+.hero-badge-strong { font-weight: 700; font-size: 0.95rem; color: var(--crema-warm); display: block; margin-bottom: 0.25rem; }
 
 /* ===== ANNOUNCEMENT BAR ===== */
 #announcement-bar {
