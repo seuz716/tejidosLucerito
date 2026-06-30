@@ -948,29 +948,3 @@ window.addEventListener('scroll', () => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + current);
   });
 }, { passive: true });
-</script>
-
-<!-- CART MODAL -->
-<div class="cart-overlay" id="cart-modal">
-  <div class="cart-drawer" role="dialog" aria-label="Carrito de compras">
-    <div class="cart-header">
-      <h3>🛒 Tu pedido</h3>
-      <button class="cart-close" data-action="close-cart" aria-label="Cerrar carrito">✕</button>
-    </div>
-    <div class="cart-items" id="cart-items">
-      <div class="cart-empty">Tu carrito está vacío<br><span style="font-size:0.8rem;">Agrega productos desde el catálogo</span></div>
-    </div>
-    <div class="cart-footer hidden" id="cart-footer">
-      <div class="cart-total">
-        <span>Total</span>
-        <span class="cart-total-val" id="cart-total-val">$0</span>
-      </div>
-      <div class="cart-actions">
-        <button class="btn-primary" data-action="cart-checkout">Solicitar por WhatsApp</button>
-        <button class="btn-outline" data-action="cart-clear" style="justify-content:center;">Vaciar</button>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
-</html>
