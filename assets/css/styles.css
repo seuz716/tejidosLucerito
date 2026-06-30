@@ -351,7 +351,7 @@ body::before {
   position: absolute;
   bottom: 3rem;
   left: 2rem;
-  background: var(--tierra-deep);
+  background: rgba(42, 31, 26, 0.85);
   color: var(--crema);
   padding: 1.25rem 1.5rem;
   border-radius: var(--radius-md);
