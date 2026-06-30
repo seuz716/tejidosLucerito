@@ -362,6 +362,19 @@ body::before {
 .hero-badge-text { font-size: 0.85rem; line-height: 1.5; }
 .hero-badge-strong { font-weight: 700; font-size: 0.95rem; color: var(--crema-warm); display: block; margin-bottom: 0.25rem; }
 
+@media (max-width: 600px) {
+  .hero-badge {
+    bottom: 1.5rem;
+    left: 1rem;
+    padding: 0.75rem 1rem;
+    max-width: 180px;
+    font-size: 0.75rem;
+  }
+  .hero-badge-icon { font-size: 1.2rem; }
+  .hero-badge-text { font-size: 0.7rem; }
+  .hero-badge-strong { font-size: 0.8rem; }
+}
+
 /* ===== ANNOUNCEMENT BAR ===== */
 #announcement-bar {
   background: var(--tierra-deep);
